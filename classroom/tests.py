@@ -1,6 +1,8 @@
 from unittest import TestCase
-from classroom.models import Student
+from classroom.models import ClassRoom, Student
 import pytest
+from mixer.backend.django import mixer
+
 
 pytestmark = pytest.mark.django_db
 
@@ -36,8 +38,10 @@ class TestStudentModel(TestCase):
 
     def test_student_is_passed(self):
         # print("\ntest_student_is_passed")
+        self.student_obj.score = 50
+        self.student_obj.save()
         # self.assertEqual(self.student_obj.get_score_grade(), "Promoted")
-        assert self.student_obj.get_score_grade() == "Promoted"
+        assert self.student_obj.get_score_grade() == "Passed"
 
 
     def test_student_is_failed(self):
@@ -61,5 +65,12 @@ class TestStudentModel(TestCase):
         self.student_obj.save()
         # self.assertEqual(self.student_obj.get_score_grade(), "Score should be in the range of 0-100")
         assert self.student_obj.get_score_grade() == "Score should be in the range of 0-100"
+    
     # def tearDown(self):
     #     Student.objects.all().delete()
+
+
+class TestClassRoom(TestCase):
+    def test_physics_classroom_has_been_created(self):
+        classroom_obj = mixer.blend(ClassRoom, name='Physics')
+        assert str(classroom_obj) == "Physics"

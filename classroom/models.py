@@ -27,8 +27,9 @@ class Student(models.Model):
 
 
 class ClassRoom(models.Model):
-    name = models.CharField(max_length=256)
-    i_student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    name = models.CharField(max_length=120)
+    student_capacity = models.IntegerField()
+    students = models.ManyToManyField(Student)
     
     def __str__(self):
         return f"{self.name}"
