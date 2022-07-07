@@ -17,8 +17,8 @@ class Student(models.Model):
             return "Failed"
         elif self.score > 30 and self.score < 60:
             return "Passed"
-        elif self.score > 60:
-            return "Pormoted"
+        elif self.score > 60 and self.score < 100:
+            return "Promoted"
         elif self.score > 100 or self.score < 0:
             return "Score should be in the range of 0-100"
 
