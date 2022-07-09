@@ -1,7 +1,9 @@
-from unittest import TestCase
+# from unittest import TestCase
 from classroom.models import ClassRoom, Student
 import pytest
 from mixer.backend.django import mixer
+from hypothesis import strategies, given
+from hypothesis.extra.django import TestCase
 
 
 pytestmark = pytest.mark.django_db
@@ -22,46 +24,51 @@ class TestStudentModel(TestCase):
 
 
     def test_first_name_comma_last_name(self):
-        # print("\ntest_first_name_comma_last_name")
         expected_name = "%s, %s" %("farzam", "alam")
         # self.assertEqual(str(self.student_obj), expected_name)
         assert str(self.student_obj) == expected_name
 
 
-    def test_admission_number_is_greater_than_5_digit(self):
-        # print("\ntest_admission_number_is_greater_than_5_digit")
-        self.student_obj.admission_number = 20000
+    @given(strategies.integers(min_value=10000, max_value=10000000))
+    def test_admission_number_is_greater_than_4_digit(self, random_value):
+        print("random_value", random_value)
+        self.student_obj.admission_number = random_value
         self.student_obj.save()
         # self.assertEqual(len(str(self.student_obj.admission_number)), 5)
-        assert len(str(self.student_obj.admission_number)) == 5
+        assert len(str(self.student_obj.admission_number)) > 4
 
 
-    def test_student_is_passed(self):
-        # print("\ntest_student_is_passed")
-        self.student_obj.score = 50
+    @given(strategies.integers(min_value=30, max_value=59))
+    def test_student_is_passed(self, random_value):
+        print("random_value", random_value)
+        self.student_obj.score = random_value
         self.student_obj.save()
         # self.assertEqual(self.student_obj.get_score_grade(), "Promoted")
         assert self.student_obj.get_score_grade() == "Passed"
 
 
-    def test_student_is_failed(self):
-        # print("\ntest_student_is_failed")
-        self.student_obj.score = 20
+    @given(strategies.integers(min_value=0, max_value=29))
+    def test_student_is_failed(self, random_value):
+        print("random_value", random_value)
+        self.student_obj.score = random_value
         self.student_obj.save()
         # self.assertEqual(self.student_obj.get_score_grade(), "Failed")
         assert self.student_obj.get_score_grade() == "Failed"
 
 
-    def test_student_is_promoted(self):
-        # print("\ntest_student_is_promoted")
-        self.student_obj.score = 80
+    @given(strategies.integers(min_value=60, max_value=100))
+    def test_student_is_promoted(self, random_value):
+        print("random_value", random_value)
+        self.student_obj.score = random_value
         self.student_obj.save()
         # self.assertEqual(self.student_obj.get_score_grade(), "Promoted")
         assert self.student_obj.get_score_grade() == "Promoted"
 
-    def test_student_score_has_incorrect_value(self):
-        # print("\ntest_student_score_has_incorrect_value")
-        self.student_obj.score = 200
+
+    @given(strategies.integers(min_value=101, max_value=1000))
+    def test_student_score_has_incorrect_value(self, random_value):
+        print("random_value", random_value)
+        self.student_obj.score = random_value
         self.student_obj.save()
         # self.assertEqual(self.student_obj.get_score_grade(), "Score should be in the range of 0-100")
         assert self.student_obj.get_score_grade() == "Score should be in the range of 0-100"
