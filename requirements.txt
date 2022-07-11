@@ -3,10 +3,13 @@ attrs==21.4.0
 backports.zoneinfo==0.2.1
 coverage==6.4.1
 Django==4.0.6
+djangorestframework==3.13.1
 exceptiongroup==1.0.0rc8
 Faker==12.0.1
 hypothesis==6.50.0
+importlib-metadata==4.12.0
 iniconfig==1.1.1
+Markdown==3.3.7
 mixer==7.2.2
 packaging==21.3
 pluggy==1.0.0
@@ -16,7 +19,9 @@ pytest==7.1.2
 pytest-cov==3.0.0
 pytest-django==4.5.2
 python-dateutil==2.8.2
+pytz==2022.1
 six==1.16.0
 sortedcontainers==2.4.0
 sqlparse==0.4.2
 tomli==2.0.1
+zipp==3.8.0
