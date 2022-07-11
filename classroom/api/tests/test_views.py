@@ -17,7 +17,7 @@ class StudentApiTestView(TestCase):
 
 
     def test_pattern_url_is_equal_to_path_url(self):
-        url = "/api/student/"
+        url = "/api/student/list/"
         assert self.url == url
 
 
