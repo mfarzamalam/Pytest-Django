@@ -4,6 +4,7 @@ backports.zoneinfo==0.2.1
 coverage==6.4.1
 Django==4.0.6
 djangorestframework==3.13.1
+djangorestframework-simplejwt==5.2.0
 exceptiongroup==1.0.0rc8
 Faker==12.0.1
 hypothesis==6.50.0
@@ -14,6 +15,7 @@ mixer==7.2.2
 packaging==21.3
 pluggy==1.0.0
 py==1.11.0
+PyJWT==2.4.0
 pyparsing==3.0.9
 pytest==7.1.2
 pytest-cov==3.0.0
