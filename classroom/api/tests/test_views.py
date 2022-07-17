@@ -141,3 +141,23 @@ class TestTokenAuthentication(TestCase):
         
         assert refresh_response.status_code == 200
         assert refresh_response.data.get('access') is not None
+
+
+    def test_user_auth(self):
+        data = {
+            "username": "admin",
+            "password": "admin"
+        }
+        login_response = self.client.post(self.login_url, data, format='json')
+        access_token = login_response.data.get('access')
+        print("access_token:", access_token)
+        assert login_response.status_code == 200
+        assert access_token is not None
+
+        self.client.credentials(HTTP_AUTHORIZATION='Bearer ' + str(access_token))
+        # print("refresh_token_url:",self.refresh_token_url)
+        auth_response = self.client.get('/api/user/auth/', format='json')
+        
+        print(auth_response.data)
+        assert auth_response.status_code == 200
+        # assert refresh_response.data.get('access') is not None

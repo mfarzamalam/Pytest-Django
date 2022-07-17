@@ -12,4 +12,6 @@ urlpatterns = [
     path('student/destroy/<int:pk>/', StudentDestroyApiView.as_view(), name='student_destroy_view'),
     path('login/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('user/auth/', CheckAuthenticatedUser.as_view(), name='user_auth'),
+
 ]
